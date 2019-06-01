@@ -7,33 +7,34 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}));
 
 app.get('/api/customers',(req,res) =>{
-    res.send([
+    res.send(
+      [
         {
-        'id':1,
-        'image':'https://placeimg.com/64/64/1',
-        'name':'장준호',
-        'birthday':'830614',
-        'gender':'남자',
-        'job':'개발자'
+          "id": 1,
+          "image": "https://placeimg.com/64/64/1",
+          "name": "장준호",
+          "birthday": "830614",
+          "gender": "남자",
+          "job": "개발자"
       },
       {
-        'id':2,
-        'image':'https://placeimg.com/64/64/2',
-        'name':'홍길동',
-        'birthday':'900316',
-        'gender':'남자',
-        'job':'개발자'
+        "id": 2,
+        "image": "https://placeimg.com/64/64/2",
+        "name": "홍길동",
+        "birthday": "830624",
+        "gender": "남자",
+        "job": "의적"
       },
       {
-        'id':3,
-        'image':'https://placeimg.com/64/64/3',
-        'name':'이순신',
-        'birthday':'320614',
-        'gender':'남자',
-        'job':'개발자'
+        "id": 3,
+        "image": "https://placeimg.com/64/64/3",
+        "name": "이순신",
+        "birthday": "130614",
+        "gender": "남자",
+        "job": "장군"
       }
-      
-      ]);
+      ]
+    );
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
