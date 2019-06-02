@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Customer from './components/Customer';
+import CustomerAdd from './components/CustomerAdd';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
@@ -34,25 +35,41 @@ table: {
 
 class  App extends Component {
 
-  state={
-    customers:"",
-    completed:0
+  constructor(props){
+    super(props);
+    this.state ={
+      customers: '',
+      completed:0
+    }
   }
 
+  stateRefresh = () =>{
+    this.setState({
+      customers:'',
+      completed:0
+    });
+    this.callApi()
+    .then(res => this.setState({customers:res}))
+    .catch(err => console.log(err));
+  }
   componentDidMount(){
-    this.timer = setInterval(this.progress, 20);
+    console.log(`conponentDidMount`);
+    this.timer = setInterval(this.progress, 2000);
     this.callApi()
     .then(res =>this.setState({customers:res}))
-    .catch(err => console.log(err));
+    .catch(err => console.log(err+" 에러발생"));
+    
   }
 
   callApi = async()=>{
     const response = await fetch('/api/customers');
     const body = await response.json();
+    console.log(`callApi`+response+body);
     return body;
   }
   
 progress = () =>{
+  console.log(`progress`);
   const {completed}= this.state;
   this.setState({completed: completed >=100 ? 0 : completed +1});
 }
@@ -60,6 +77,7 @@ progress = () =>{
   render(){
     const{classes} = this.props;
     return (
+      <div>
       <Paper className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
@@ -87,9 +105,11 @@ progress = () =>{
         </Table>
 
     </Paper>
+    <CustomerAdd stateRefresh={this.stateRefresh}/>
+    </div>
 
        );
    }
  }
 
-export default withStyles(styles) (App);
+export default withStyles(styles)(App);
