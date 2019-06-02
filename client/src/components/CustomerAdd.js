@@ -23,6 +23,7 @@ class CustomerAdd extends React.Component{
             this.addCustomer()
             .then((response)=>{
                 console.log(response.data);
+                this.props.setStateRefresh();
             })
             this.setState({
                 file:null,
@@ -33,7 +34,7 @@ class CustomerAdd extends React.Component{
                 fileName:''
                 
             })
-            this.props.setStateRefresh();
+          
         }
     
         handleFileChange(e){
